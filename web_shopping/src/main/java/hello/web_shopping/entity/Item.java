@@ -7,16 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "products")
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long item_id;
+    private Long id;
 
     private String name;
     private String image;
-    private String explain;
+    private String description;
     private LocalDateTime makingDate;
     private int price;
     private int quantity;
@@ -27,7 +26,7 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<Cart> cartList = new ArrayList<>();
     @OneToMany(mappedBy = "item")
-    private List<CategoryProduct> categoryProductList = new ArrayList<>();
+    private List<CategoryItem> categoryItemList = new ArrayList<>();
     @OneToMany(mappedBy = "item")
     private List<Review> reviewList = new ArrayList<>();
 }

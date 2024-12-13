@@ -5,14 +5,13 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "address")
 public class Address {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long address_id;
+    private Long id;
 
     @Embedded
-    private AddressEmb address;
+    private AddressEmb addressHistory;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private String status;

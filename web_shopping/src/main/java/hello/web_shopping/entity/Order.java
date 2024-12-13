@@ -13,7 +13,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long order_id;
+    private Long id;
 
     private Long orderPrice;
     private String request;
@@ -24,7 +24,7 @@ public class Order {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "memberId")
     private Member member;
 
     @OneToMany(mappedBy = "order")

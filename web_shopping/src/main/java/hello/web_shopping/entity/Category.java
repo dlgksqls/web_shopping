@@ -7,12 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
 public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long category_id;
+    private Long id;
 
     private String name;
     private LocalDateTime createdDate;
@@ -20,11 +19,11 @@ public class Category {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_Id")
+    @JoinColumn(name = "categoryChildId")
     private Category category;
     @OneToMany(mappedBy = "category")
     private List<Category> categoryList = new ArrayList<>();
     @OneToMany(mappedBy = "category")
-    private List<CategoryProduct> categoryProductList = new ArrayList<>();
+    private List<CategoryItem> categoryItemList = new ArrayList<>();
 
 }

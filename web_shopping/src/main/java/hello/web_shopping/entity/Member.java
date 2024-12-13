@@ -1,8 +1,10 @@
 package hello.web_shopping.entity;
 
+import hello.web_shopping.dto.member.MemberRegisterDto;
 import hello.web_shopping.entity.embeddablePkg.AddressEmb;
 import hello.web_shopping.entity.enumPkg.Grade;
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
@@ -10,18 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long member_id;
-    private String username;
+    private Long id;
+    private String loginId;
     private String nickname;
     private String email;
     private String password;
     private String phone;
     private LocalDateTime birth;
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("Good")
     private Grade grade;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
@@ -37,4 +39,17 @@ public class Member {
     private List<Cart> cartList = new ArrayList<>();
     @OneToMany(mappedBy = "member")
     private List<Review> reviewList = new ArrayList<>();
+
+    public void createMember(MemberRegisterDto dto){
+        this.loginId = dto.getLoginId();
+        this.nickname = dto.getNickname();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.phone = dto.getPhone();
+        this.birth = dto.getBirth();
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate = createdDate;
+        this.address = new AddressEmb(dto.getCity(), dto.getStreet(), dto.getZipcode());
+        this.grade = Grade.GOOD;
+    }
 }

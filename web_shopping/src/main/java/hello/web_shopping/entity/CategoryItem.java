@@ -3,19 +3,18 @@ package hello.web_shopping.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "categoryproduct")
-public class CategoryProduct {
+public class CategoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryproduct_id;
+    private Long categoryItem_Id;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_Id")
+    @JoinColumn(name = "categoryId")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "itemId")
     private Item item;
 }

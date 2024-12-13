@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "cart")
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cart_id;
+    private Long id;
 
     private Long orderQuantity;
     private LocalDateTime createdDate;
@@ -18,10 +17,10 @@ public class Cart {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "memberId")
     private Member member;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_Id")
+    @JoinColumn(name = "orderId")
     private Order order;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
