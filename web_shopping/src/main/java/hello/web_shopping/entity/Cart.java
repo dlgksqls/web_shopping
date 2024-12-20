@@ -15,7 +15,6 @@ public class Cart {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
