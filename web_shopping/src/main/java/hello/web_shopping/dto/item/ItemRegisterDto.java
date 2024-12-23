@@ -11,11 +11,11 @@ public class ItemRegisterDto {
     private String name;
     private String image;
     private String description;
-    private int price;
+    private Long price;
     private int quantity;
     private LocalDateTime makingDate;
 
-    public ItemRegisterDto(String name, String image, String description, int price, int quantity, LocalDateTime makingDate) {
+    public ItemRegisterDto(String name, String image, String description, Long price, int quantity, LocalDateTime makingDate) {
         this.name = name;
         this.image = image;
         this.description = description;

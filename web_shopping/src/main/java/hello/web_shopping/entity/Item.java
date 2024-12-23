@@ -20,7 +20,7 @@ public class Item {
     private String image;
     private String description;
     private LocalDateTime makingDate;
-    private int price;
+    private Long price;
     private int quantity;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
