@@ -40,4 +40,10 @@ public class Cart {
         buyMember.getCartList().add(this);
         addItem.getCartList().add(this);
     }
+
+    public void addPlusItem(Item addItem, int plusQuantity) {
+        this.orderQuantity += plusQuantity;
+        this.updatedDate = LocalDateTime.now();
+        this.totalPrice += addItem.getPrice() * plusQuantity;
+    }
 }

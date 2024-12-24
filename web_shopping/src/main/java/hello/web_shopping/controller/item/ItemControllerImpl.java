@@ -1,4 +1,4 @@
-package hello.web_shopping.controller;
+package hello.web_shopping.controller.item;
 
 import hello.web_shopping.dto.item.ItemRegisterDto;
 import hello.web_shopping.dto.item.ItemReturnDto;
@@ -16,19 +16,20 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/item")
-public class ItemController {
+public class ItemControllerImpl implements ItemController{
 
     private final ItemService itemService;
 
     @GetMapping("")
-    public ResponseEntity<List<ItemReturnDto>> findAll(){
+    @Override
+    public ResponseEntity<List<ItemReturnDto>> findAll() {
         List<ItemReturnDto> returnDtos = itemService.findAll();
         return new ResponseEntity<>(returnDtos, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("")
-    public ResponseEntity<ItemReturnDto> register(ItemRegisterDto dto){
-
+    @Override
+    public ResponseEntity<ItemReturnDto> register(ItemRegisterDto dto) {
         ItemReturnDto returnDto = itemService.register(dto);
         return new ResponseEntity<>(returnDto, HttpStatus.CREATED);
     }

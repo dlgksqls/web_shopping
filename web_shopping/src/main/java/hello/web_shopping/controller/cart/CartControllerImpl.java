@@ -1,4 +1,4 @@
-package hello.web_shopping.controller;
+package hello.web_shopping.controller.cart;
 
 import hello.web_shopping.dto.cart.CartReturnDto;
 import hello.web_shopping.dto.cart.ItemAddToCartDto;
@@ -10,17 +10,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("cart")
-public class CartController {
+public class CartControllerImpl implements CartController {
 
     private final CartService cartService;
 
     @PostMapping("")
-    public ResponseEntity<CartReturnDto> addItemToCart(ItemAddToCartDto itemAddToCartDto){
+    @Override
+    public ResponseEntity<CartReturnDto> addItemToCart(ItemAddToCartDto itemAddToCartDto) {
         CartReturnDto returnDto = cartService.addItemToCart(itemAddToCartDto);
 
         return new ResponseEntity<>(returnDto, HttpStatus.ACCEPTED);

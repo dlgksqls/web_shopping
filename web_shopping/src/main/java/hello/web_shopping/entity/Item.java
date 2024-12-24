@@ -43,4 +43,12 @@ public class Item {
         this.createdDate = LocalDateTime.now();
         this.updatedDate = createdDate;
     }
+
+    public void addToCart(int quantity){
+        this.quantity -= quantity;
+    }
+
+    public void removeFromCart(int quantity){
+        this.quantity += quantity;
+    }
 }

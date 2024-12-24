@@ -25,13 +25,19 @@ public class CartServiceImpl implements CartService{
         Member buyMember = memberRepository.findByLoginId(itemAddToCartDto.getMemberId());
         int quantity = itemAddToCartDto.getCartQuantity();
 
-        Cart addItemToCart = new Cart();
+        Cart cart = cartRepository.findCartByMemberAndItem(buyMember.getId(), addItem.getId());
 
-        addItemToCart.addNewItem(addItem, buyMember, quantity);
-        cartRepository.save(addItemToCart);
+        if (cart != null) {
+            cart.addPlusItem(addItem, quantity);
+        } else {
+            cart = new Cart();
+            cart.addNewItem(addItem, buyMember, quantity);
+        }
 
-        CartReturnDto returnDto = new CartReturnDto(addItemToCart);
+        addItem.addToCart(quantity);
+        cartRepository.save(cart);
 
-        return returnDto;
+        return new CartReturnDto(cart);
     }
+
 }
