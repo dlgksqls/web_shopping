@@ -2,9 +2,12 @@ package hello.web_shopping.entity;
 
 import hello.web_shopping.entity.embeddablePkg.AddressEmb;
 import jakarta.persistence.*;
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 public class Address {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,4 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface CartController {
 
     ResponseEntity<CartReturnDto> addItemToCart(ItemAddToCartDto itemAddToCartDto);
+
+    ResponseEntity<CartReturnDto> removeItemFromCart(String memberId, String itemId, int removeQuantity);
 }

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
@@ -16,4 +18,6 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
     @Query("SELECT c FROM Cart c JOIN FETCH c.member m JOIN FETCH c.item i WHERE m.id = :memberId AND i.id = :itemId")
     Cart findCartByMemberAndItem(@Param("memberId") Long memberId, @Param("itemId") Long itemId);
 
+    @Query("SELECT c FROM Cart c JOIN FETCH c.member m WHERE m.id = :memberId")
+    List<Cart> findCartByMember(@Param("memberId") Long memberId);
 }

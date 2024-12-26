@@ -46,4 +46,10 @@ public class Cart {
         this.updatedDate = LocalDateTime.now();
         this.totalPrice += addItem.getPrice() * plusQuantity;
     }
+
+    public void reduceItemFromCart(Item removeItem, int removeQuantity){
+        this.orderQuantity -= removeQuantity;
+        this.updatedDate = LocalDateTime.now();
+        this.totalPrice -= removeItem.getPrice() * removeQuantity;
+    }
 }

@@ -2,12 +2,14 @@ package hello.web_shopping.entity;
 
 import hello.web_shopping.entity.enumPkg.Status;
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @Table(name = "orders")
 public class Order {
 

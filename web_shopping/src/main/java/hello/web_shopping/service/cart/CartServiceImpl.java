@@ -10,9 +10,14 @@ import hello.web_shopping.repository.ItemRepository;
 import hello.web_shopping.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CartServiceImpl implements CartService{
 
     private final CartRepository cartRepository;
@@ -37,7 +42,32 @@ public class CartServiceImpl implements CartService{
         addItem.addToCart(quantity);
         cartRepository.save(cart);
 
-        return new CartReturnDto(cart);
+        List<Cart> cartByMember = cartRepository.findCartByMember(buyMember.getId());
+
+        return new CartReturnDto(cartByMember);
     }
 
+    @Override
+    public CartReturnDto removeItemFromCart(String memberId, String itemName, int removeQuantity) {
+        Member findMember = memberRepository.findByLoginId(memberId);
+        Item removeItem = itemRepository.findByName(itemName);
+
+        Cart cart = cartRepository.findCartByMemberAndItem(findMember.getId(), removeItem.getId());
+
+        if (cart == null){
+            throw new NullPointerException("찾으시는 장바구니가 없습니다.");
+        }
+
+        if (removeQuantity == cart.getOrderQuantity()){
+            cartRepository.delete(cart);
+        }
+        else{
+            cart.reduceItemFromCart(removeItem, removeQuantity);
+        }
+
+        removeItem.removeFromCart(removeQuantity);
+        List<Cart> cartByMember = cartRepository.findCartByMember(findMember.getId());
+
+        return new CartReturnDto(cartByMember);
+    }
 }
