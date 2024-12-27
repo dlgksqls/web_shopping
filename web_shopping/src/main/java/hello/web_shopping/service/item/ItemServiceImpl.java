@@ -40,4 +40,18 @@ public class ItemServiceImpl implements ItemService{
 
         return returnDtos;
     }
+
+    @Override
+    public List<ItemReturnDto> findItemsByItemName(String itemName) {
+        List<Item> items = itemRepository.findItemsByName(itemName);
+        List<ItemReturnDto> returnDtos = new ArrayList<>();
+
+        for (Item item : items) {
+            ItemReturnDto dto = new ItemReturnDto(item);
+
+            returnDtos.add(dto);
+        }
+
+        return returnDtos;
+    }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @RequestMapping("member")
-public interface MemberController {
+public interface MemberControllerAPI {
 
     ResponseEntity<List<MemberJoinReturnDto>> allMember();
 

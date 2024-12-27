@@ -6,10 +6,7 @@ import hello.web_shopping.service.item.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,13 @@ public class ItemControllerImpl implements ItemController{
     public ResponseEntity<ItemReturnDto> register(ItemRegisterDto dto) {
         ItemReturnDto returnDto = itemService.register(dto);
         return new ResponseEntity<>(returnDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{itemName}")
+    @Override
+    public ResponseEntity<List<ItemReturnDto>> findItems(@PathVariable String itemName) {
+        List<ItemReturnDto> findItems = itemService.findItemsByItemName(itemName);
+
+        return new ResponseEntity<>(findItems, HttpStatus.OK);
     }
 }

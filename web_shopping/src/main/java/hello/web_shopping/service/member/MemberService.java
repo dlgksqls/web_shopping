@@ -12,4 +12,6 @@ public interface MemberService {
 
     List<MemberJoinReturnDto> findAll();
     MemberJoinReturnDto join(MemberRegisterDto memberRegisterDto);
+
+    MemberJoinReturnDto findByLoginId(String loginId);
 }

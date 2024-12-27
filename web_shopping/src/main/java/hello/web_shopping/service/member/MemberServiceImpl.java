@@ -36,4 +36,13 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.save(joinMember);
         return returnDto;
     }
+
+    @Override
+    public MemberJoinReturnDto findByLoginId(String loginId) {
+        Member findMember = memberRepository.findByLoginId(loginId);
+
+        MemberJoinReturnDto returnDto = new MemberJoinReturnDto(findMember);
+
+        return returnDto;
+    }
 }

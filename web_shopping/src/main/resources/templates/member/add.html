@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+    <body>
+        <h2>유저를 등록하는 폼 입니다.</h2>
+
+        <form action="memberInfo.html" th:action th:object="${member}" method="post">
+            <div>
+                <label for="loginId">아이디</label>
+                <input type="text" id="loginId" th:field="*{loginId}"><br>
+                <label for="nickname">닉네임</label>
+                <input type="text" id="nickname" th:field="*{nickname}"><br>
+                <label for="email">이메일</label>.
+                <input type="text" id="email" th:field="*{email}"><br>
+                <label for="password">비밀번호</label>
+                <input type="text" id="password" th:field="*{password}"><br>
+                <label for="phone">휴대폰</label>
+                <input type="text" id="phone" th:field="*{phone}"><br>
+<!--                <label for="birth">생년월일</label>
+                <input type="date" id="birth" th:field="*{birth}"><br>-->
+                <label for="city">도시</label>
+                <input type="text" id="city" th:field="*{city}"><br>
+                <label for="street">도로</label>
+                <input type="text" id="street" th:field="*{street}"><br>
+                <label for="zipcode">상세</label>
+                <input type="text" id="zipcode" th:field="*{zipcode}"><br>
+
+                <button type="submit">회원 등록</button>
+            </div>
+
+        </form>
+    </body>
+</html>

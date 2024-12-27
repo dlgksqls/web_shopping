@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class MemberControllerImpl implements MemberController {
+public class MemberControllerAPIImpl implements MemberControllerAPI {
 
     private final MemberService memberService;
 
