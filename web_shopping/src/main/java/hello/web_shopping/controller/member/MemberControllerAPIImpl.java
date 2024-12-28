@@ -16,7 +16,6 @@ public class MemberControllerAPIImpl implements MemberControllerAPI {
 
     private final MemberService memberService;
 
-
     @GetMapping("")
     @Override
     public ResponseEntity<List<MemberJoinReturnDto>> allMember() {

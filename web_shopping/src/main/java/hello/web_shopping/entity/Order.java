@@ -31,4 +31,14 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<Cart> cartList = new ArrayList<>();
+
+    public void createOrder(Cart orderCart, String request) {
+
+        this.orderPrice = orderCart.getTotalPrice();
+        this.request = request;
+        this.createdDate = null;
+        this.status = Status.ORDER;
+        this.member = orderCart.getMember();
+        this.cartList.add(orderCart);
+    }
 }
