@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 public interface CartService {
     CartReturnDto addItemToCart(ItemAddToCartDto itemAddToCartDto);
 

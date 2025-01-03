@@ -52,4 +52,12 @@ public class Member {
         this.address = new AddressEmb(dto.getCity(), dto.getStreet(), dto.getZipcode());
         this.grade = Grade.GOOD;
     }
+
+    public void createAdminMember() {
+        this.loginId = "admin";
+        this.nickname = "admin";
+        this.password = "1234";
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate = null;
+    }
 }

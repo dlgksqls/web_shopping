@@ -4,17 +4,22 @@ import hello.web_shopping.dto.order.OrderInputDto;
 import hello.web_shopping.dto.order.OrderReturnDto;
 import hello.web_shopping.service.Order.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 public class OrderControllerImpl implements OrderController{
 
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @Override
-    public ResponseEntity<OrderReturnDto> order(OrderInputDto dto) {
-        orderService.order(dto.getCartId(), dto.getMemberId());
+    @PostMapping("")
+    public ResponseEntity<OrderReturnDto> order(OrderInputDto dto, String request) {
+        OrderReturnDto newOrder = orderService.order(dto.getMemberId(), request);
+
+        return new ResponseEntity<>(newOrder, HttpStatus.ACCEPTED);
     }
 }

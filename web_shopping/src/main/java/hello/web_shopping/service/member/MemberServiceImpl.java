@@ -4,14 +4,17 @@ import hello.web_shopping.dto.member.MemberJoinReturnDto;
 import hello.web_shopping.dto.member.MemberRegisterDto;
 import hello.web_shopping.entity.Member;
 import hello.web_shopping.repository.MemberRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;

@@ -32,13 +32,19 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<Cart> cartList = new ArrayList<>();
 
-    public void createOrder(Cart orderCart, String request) {
+    public void createOrder(List<Cart> orderCarts, String request) {
 
-        this.orderPrice = orderCart.getTotalPrice();
+        Long totalPrice = 0L;
+
+        for (Cart orderCart : orderCarts) {
+            totalPrice += orderCart.getTotalPrice();
+        }
+
+        this.orderPrice = totalPrice;
         this.request = request;
-        this.createdDate = null;
+        this.createdDate = LocalDateTime.now();
         this.status = Status.ORDER;
-        this.member = orderCart.getMember();
-        this.cartList.add(orderCart);
+        this.member = orderCarts.get(0).getMember();
+        this.cartList.addAll(orderCarts);
     }
 }

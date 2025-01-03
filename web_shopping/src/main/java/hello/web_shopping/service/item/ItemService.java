@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
 public interface ItemService {
 
     ItemReturnDto register(ItemRegisterDto itemRegisterDto);

@@ -51,4 +51,12 @@ public class Item {
     public void removeFromCart(int quantity){
         this.quantity += quantity;
     }
+
+    public void createFirstItem() {
+        this.name = "콘칩";
+        this.price = 100L;
+        this.quantity = 10;
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate = null;
+    }
 }

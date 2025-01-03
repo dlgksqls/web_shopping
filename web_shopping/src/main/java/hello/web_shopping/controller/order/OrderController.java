@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/order")
 public interface OrderController {
 
-    public ResponseEntity<OrderReturnDto> order(OrderInputDto dto);
+    public ResponseEntity<OrderReturnDto> order(OrderInputDto dto, String request);
 }

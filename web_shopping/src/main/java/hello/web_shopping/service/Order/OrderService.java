@@ -5,5 +5,5 @@ import hello.web_shopping.dto.order.OrderReturnDto;
 
 public interface OrderService {
 
-    OrderReturnDto order(Long cartId, String memberId, String request);
+    OrderReturnDto order(String memberId, String request);
 }

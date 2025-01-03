@@ -10,11 +10,14 @@ import hello.web_shopping.repository.MemberRepository;
 import hello.web_shopping.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class OrderServiceImpl implements OrderService{
 
     private final OrderRepository orderRepository;
@@ -22,22 +25,25 @@ public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository;
 
     @Override
-    public OrderReturnDto order(Long cartId, String memberId, String request) {
-        Cart orderCart = cartRepository.findByCartId(cartId);
+    public OrderReturnDto order(String memberId, String request) {
         Member orderMember = memberRepository.findByLoginId(memberId);
+        List<Cart> orderCarts = cartRepository.findCartByMember(orderMember.getId());
 
-        if (orderCart.getMember().getLoginId() != orderMember.getLoginId()){
+        if (orderCarts == null || orderMember == null){
             return null;
         }
 
         Order newOrder = new Order();
-        newOrder.createOrder(orderCart, request);
+        newOrder.createOrder(orderCarts, request);
 
         orderRepository.save(newOrder);
-        cartRepository.delete(orderCart);
+
+        for (Cart orderCart : orderCarts) {
+            cartRepository.delete(orderCart);
+        }
 
         Long totalPrice = newOrder.getOrderPrice();
 
-        return new OrderReturnDto(totalPrice);
+        return new OrderReturnDto(totalPrice, orderCarts);
     }
 }

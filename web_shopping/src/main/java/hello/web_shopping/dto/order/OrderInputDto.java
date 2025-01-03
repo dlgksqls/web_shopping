@@ -5,11 +5,9 @@ import lombok.Data;
 @Data
 public class OrderInputDto {
 
-    private Long cartId;
     private String memberId;
 
-    public OrderInputDto(Long cartId, String memberId) {
-        this.cartId = cartId;
+    public OrderInputDto(String memberId) {
         this.memberId = memberId;
     }
 }

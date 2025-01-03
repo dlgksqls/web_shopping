@@ -6,12 +6,14 @@ import hello.web_shopping.entity.Item;
 import hello.web_shopping.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
