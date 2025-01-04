@@ -3,11 +3,14 @@ package hello.web_shopping.service.item;
 import hello.web_shopping.dto.item.ItemRegisterDto;
 import hello.web_shopping.dto.item.ItemReturnDto;
 import hello.web_shopping.entity.Item;
+import hello.web_shopping.entity.UploadFile;
 import hello.web_shopping.repository.ItemRepository;
+import hello.web_shopping.service.file.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +20,17 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
+    private final FileService fileService;
 
     @Override
-    public ItemReturnDto register(ItemRegisterDto itemRegisterDto) {
+    public ItemReturnDto register(ItemRegisterDto itemRegisterDto) throws IOException {
         Item newItem = new Item();
+
         newItem.register(itemRegisterDto);
+
+        List<UploadFile> uploadFileList = fileService.storeFiles(itemRegisterDto.getImageList(), newItem);
+
+        newItem.addImage(uploadFileList);
 
         itemRepository.save(newItem);
 

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequestMapping("/item")
@@ -13,7 +14,7 @@ public interface ItemController {
 
     ResponseEntity<List<ItemReturnDto>> findAll();
 
-    ResponseEntity<ItemReturnDto> register(ItemRegisterDto dto);
+    ResponseEntity<ItemReturnDto> register(ItemRegisterDto dto) throws IOException;
 
     ResponseEntity<List<ItemReturnDto>> findItems(String itemName);
 }
