@@ -17,6 +17,7 @@ public class ItemReturnDto {
     private Long price;
     private int quantity;
     private LocalDateTime createdDate;
+    private List<String> imageUrls = new ArrayList<>();
 
     public ItemReturnDto(Item item) {
         this.id = item.getId();
@@ -25,7 +26,13 @@ public class ItemReturnDto {
         this.price = item.getPrice();
         this.quantity = item.getQuantity();
         this.createdDate = item.getCreatedDate();
+
+        for (UploadFile uploadFile : item.getUploadFileList()) {
+            this.imageUrls.add(uploadFile.getStoreFileName());
+        }
+    }
+
+    public ItemReturnDto() {
     }
 }
-
 

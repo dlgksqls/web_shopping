@@ -4,8 +4,10 @@ import hello.web_shopping.dto.member.MemberRegisterDto;
 import hello.web_shopping.entity.embeddablePkg.AddressEmb;
 import hello.web_shopping.entity.enumPkg.Grade;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class Member {
     private Grade grade;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+
     @Embedded
     private AddressEmb address;
 
@@ -56,8 +59,13 @@ public class Member {
     public void createAdminMember() {
         this.loginId = "admin";
         this.nickname = "admin";
+        this.email = "admin@admin.com";
         this.password = "1234";
+        this.phone = "010-8888-8888";
+        this.birth = LocalDateTime.now();
         this.createdDate = LocalDateTime.now();
-        this.updatedDate = null;
+        this.updatedDate = createdDate;
+        this.address = new AddressEmb("Seoul", "Buk-gu", "GangNamGu");
+        this.grade = Grade.GOOD;
     }
 }

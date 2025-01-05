@@ -47,4 +47,8 @@ public class Order {
         this.member = orderCarts.get(0).getMember();
         this.cartList.addAll(orderCarts);
     }
+
+    public void cancel() {
+        this.status = Status.CANCEL;
+    }
 }

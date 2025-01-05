@@ -14,4 +14,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     @Query("SELECT i FROM Item i WHERE i.name LIKE CONCAT('%', :itemName, '%')")
     List<Item> findItemsByName(@Param("itemName") String itemName);
+
+//    @Query("SELECT i FROM Item i join fetch UploadFile f WHERE f.item.id = :itemId")
+//    List<Item> findAll(@Param("itemId") Long itemId);
 }

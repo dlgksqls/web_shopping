@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 public class MemberJoinReturnDto {
 
     private String loginId;
+    private String nickName;
     private LocalDateTime createdDate;
     private String address;
     private String grade;
 
     public MemberJoinReturnDto(Member member) {
         this.loginId = member.getLoginId();
+        this.nickName = member.getNickname();
         this.createdDate = member.getCreatedDate();
         this.address = member.getAddress().toString();
         this.grade = member.getGrade().toString();

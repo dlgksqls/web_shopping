@@ -10,4 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface OrderController {
 
     public ResponseEntity<OrderReturnDto> order(OrderInputDto dto, String request);
+
+    public ResponseEntity<String> orderCancel(Long orderId);
 }

@@ -22,4 +22,12 @@ public class OrderControllerImpl implements OrderController{
 
         return new ResponseEntity<>(newOrder, HttpStatus.ACCEPTED);
     }
+
+    @Override
+    @PostMapping("cancel")
+    public ResponseEntity<String> orderCancel(Long orderId) {
+        orderService.orderCancel(orderId);
+
+        return new ResponseEntity<>("cancel 성공", HttpStatus.ACCEPTED);
+    }
 }

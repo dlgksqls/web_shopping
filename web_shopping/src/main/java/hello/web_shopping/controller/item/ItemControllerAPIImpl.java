@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/item")
-public class ItemControllerImpl implements ItemController{
+public class ItemControllerAPIImpl implements ItemControllerAPI {
 
     private final ItemService itemService;
 

@@ -46,4 +46,11 @@ public class OrderServiceImpl implements OrderService{
 
         return new OrderReturnDto(totalPrice, orderCarts);
     }
+
+    @Override
+    public void orderCancel(Long orderId) {
+        Order cancelOrder = orderRepository.findByOrderId(orderId);
+
+        cancelOrder.cancel();
+    }
 }
