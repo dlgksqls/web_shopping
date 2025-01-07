@@ -49,6 +49,14 @@ public class Item {
         this.uploadFileList = uploadFileList;
     }
 
+    public void addCategory(List<Category> categoryList) {
+        for (Category category : categoryList) {
+            CategoryItem categoryItem = new CategoryItem(this, category);
+            this.categoryItemList.add(categoryItem);
+            category.getCategoryItemList().add(categoryItem);
+        }
+    }
+
     public void addToCart(int quantity){
         this.quantity -= quantity;
     }

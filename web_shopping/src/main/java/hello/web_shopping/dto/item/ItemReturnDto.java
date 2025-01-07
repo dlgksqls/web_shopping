@@ -1,5 +1,6 @@
 package hello.web_shopping.dto.item;
 
+import hello.web_shopping.entity.CategoryItem;
 import hello.web_shopping.entity.Item;
 import hello.web_shopping.entity.UploadFile;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class ItemReturnDto {
     private Long price;
     private int quantity;
     private LocalDateTime createdDate;
+    private List<String> categoryList = new ArrayList<>();
     private List<String> imageUrls = new ArrayList<>();
 
     public ItemReturnDto(Item item) {
@@ -29,6 +31,10 @@ public class ItemReturnDto {
 
         for (UploadFile uploadFile : item.getUploadFileList()) {
             this.imageUrls.add(uploadFile.getStoreFileName());
+        }
+
+        for (CategoryItem categoryItem : item.getCategoryItemList()) {
+            this.categoryList.add(categoryItem.getCategory().getName());
         }
     }
 

@@ -14,6 +14,7 @@ public class ItemRegisterDto {
     private String name;
 //    private String image;
     private List<MultipartFile> imageList = new ArrayList<>();
+    private List<String> categoryList = new ArrayList<>();
     private String description;
     private Long price;
     private int quantity;
