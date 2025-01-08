@@ -9,6 +9,7 @@ import hello.web_shopping.entity.UploadFile;
 import hello.web_shopping.repository.CategoryItemRepository;
 import hello.web_shopping.repository.CategoryRepository;
 import hello.web_shopping.repository.ItemRepository;
+import hello.web_shopping.service.CategoryItem.CategoryItemService;
 import hello.web_shopping.service.file.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,10 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService{
 
     private final ItemRepository itemRepository;
-    private final FileService fileService;
     private final CategoryRepository categoryRepository;
-    private final CategoryItemRepository categoryItemRepository;
+
+    private final FileService fileService;
+    private final CategoryItemService categoryItemService;
 
     @Override
     public ItemReturnDto register(ItemRegisterDto itemRegisterDto) throws IOException {
@@ -36,10 +38,12 @@ public class ItemServiceImpl implements ItemService{
         List<UploadFile> uploadFileList = fileService.storeFiles(itemRegisterDto.getImageList(), newItem);
         newItem.addImage(uploadFileList);
 
-        List<Category> categoryList = categoryRepository.findAllByCategoryName(itemRegisterDto.getCategoryList());
-        newItem.addCategory(categoryList);
-
         itemRepository.save(newItem);
+
+        Category categoryList = categoryRepository.findAllByCategoryName(itemRegisterDto.getCategory());
+        newItem.addCategory(categoryList);
+//        categoryItemService.saveCategoryItem(newItem, categoryList);
+
 
         ItemReturnDto returnDto = new ItemReturnDto(newItem);
 

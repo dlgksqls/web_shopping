@@ -3,6 +3,7 @@ package hello.web_shopping.entity;
 import hello.web_shopping.dto.item.ItemRegisterDto;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     private List<Cart> cartList = new ArrayList<>();
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<CategoryItem> categoryItemList = new ArrayList<>();
     @OneToMany(mappedBy = "item")
     private List<Review> reviewList = new ArrayList<>();
@@ -49,12 +50,15 @@ public class Item {
         this.uploadFileList = uploadFileList;
     }
 
-    public void addCategory(List<Category> categoryList) {
-        for (Category category : categoryList) {
-            CategoryItem categoryItem = new CategoryItem(this, category);
-            this.categoryItemList.add(categoryItem);
-            category.getCategoryItemList().add(categoryItem);
-        }
+    public void addCategory(Category categoryList) {
+//        for (Category category : categoryList) {
+//            CategoryItem categoryItem = new CategoryItem(this, category);
+//            this.categoryItemList.add(categoryItem);
+//            category.getCategoryItemList().add(categoryItem);
+//        }
+        CategoryItem categoryItem = new CategoryItem(this, categoryList);
+        this.categoryItemList.add(categoryItem);
+        categoryList.getCategoryItemList().add(categoryItem);
     }
 
     public void addToCart(int quantity){

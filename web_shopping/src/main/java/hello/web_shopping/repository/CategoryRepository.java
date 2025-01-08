@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    @Query("SELECT c FROM Category c WHERE c.name IN :categoryNames")
-    List<Category> findAllByCategoryName(@Param("categoryNames") List<String> categoryNames);
+    @Query("SELECT c FROM Category c WHERE c.name = :categoryNames")
+    Category findAllByCategoryName(@Param("categoryNames") String categoryNames);
 }

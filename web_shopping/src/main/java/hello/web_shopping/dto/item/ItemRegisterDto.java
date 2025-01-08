@@ -14,15 +14,17 @@ public class ItemRegisterDto {
     private String name;
 //    private String image;
     private List<MultipartFile> imageList = new ArrayList<>();
-    private List<String> categoryList = new ArrayList<>();
+//    private List<String> categoryList = new ArrayList<>();
+    private String category;
     private String description;
     private Long price;
     private int quantity;
     private LocalDateTime makingDate;
 
-    public ItemRegisterDto(String name, List<MultipartFile> imageList, String description, Long price, int quantity, LocalDateTime makingDate) {
+    public ItemRegisterDto(String name, String category, List<MultipartFile> imageList, String description, Long price, int quantity, LocalDateTime makingDate) {
         this.name = name;
         this.imageList = imageList;
+        this.category = category;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
