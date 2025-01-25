@@ -1,6 +1,7 @@
 package hello.web_shopping.controller.member;
 
 import hello.web_shopping.dto.member.MemberJoinReturnDto;
+import hello.web_shopping.dto.member.MemberLoginDto;
 import hello.web_shopping.dto.member.MemberRegisterDto;
 import hello.web_shopping.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,8 +32,24 @@ public class MemberControllerSSH {
         return "redirect:/memberssh/{memberId}";
     }
 
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("member", new MemberLoginDto());
+        return "member/login";
+    }
+
+    @PostMapping("/login")
+    public String loginSuccessForm(@ModelAttribute MemberLoginDto member, RedirectAttributes redirectAttributes){
+        if (!memberService.login(member)){
+            return "redirect:/memberssh/login";
+        }
+
+        redirectAttributes.addAttribute("member", member);
+        return "redirect:/memberssh/index";
+    }
+
     @GetMapping("/{memberId}")
-    public String item(@PathVariable String memberId, Model model) {
+    public String findMember(@PathVariable String memberId, Model model) {
         MemberJoinReturnDto member = memberService.findByLoginId(memberId);
 
         model.addAttribute("member", member);

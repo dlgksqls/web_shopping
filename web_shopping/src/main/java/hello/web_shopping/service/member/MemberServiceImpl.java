@@ -1,6 +1,7 @@
 package hello.web_shopping.service.member;
 
 import hello.web_shopping.dto.member.MemberJoinReturnDto;
+import hello.web_shopping.dto.member.MemberLoginDto;
 import hello.web_shopping.dto.member.MemberRegisterDto;
 import hello.web_shopping.entity.Member;
 import hello.web_shopping.repository.MemberRepository;
@@ -38,6 +39,20 @@ public class MemberServiceImpl implements MemberService{
         MemberJoinReturnDto returnDto = new MemberJoinReturnDto(joinMember);
         memberRepository.save(joinMember);
         return returnDto;
+    }
+
+    @Override
+    public Boolean login(MemberLoginDto memberLoginDto){
+        String loginId = memberLoginDto.getLoginId();
+        String password = memberLoginDto.getPassword();
+
+        Member loginMember = memberRepository.findByLoginId(loginId);
+
+        if (!loginMember.getPassword().equals(password)){
+            return false;
+        }
+
+        return true;
     }
 
     @Override
