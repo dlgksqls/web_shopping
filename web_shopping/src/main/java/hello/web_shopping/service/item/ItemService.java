@@ -14,5 +14,7 @@ public interface ItemService {
 
     List<ItemReturnDto> findAll();
 
+    ItemReturnDto findByItemName(String itemName);
+
     List<ItemReturnDto> findItemsByItemName(String itemName);
 }

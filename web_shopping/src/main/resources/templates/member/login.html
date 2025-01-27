@@ -1,21 +1,24 @@
 <!DOCTYPE HTML>
 
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-    </head>
+<head>
+    <meta charset="utf-8">
+</head>
 
-    <body>
-    <form action="#" th:action="@{/login}" th:object="${member}" method="post">
-        <div>
-            <label for="loginId">ID</label>
-            <input type="text" id="loginId" th:field="*{loginId}"><br>
+<body>
+<div th:if="${errorMessage}" style="color: red;">
+    <p th:text="${errorMessage}"></p>
+</div>
+<form action="/memberssh/login" th:object="${member}" method="post">
+    <div>
+        <label for="loginId">ID</label>
+        <input type="text" id="loginId" th:field="*{loginId}"><br>
 
-            <label for="password">PASSWORD</label>
-            <input type="text" id="password" th:field="*{password}"><br>
-        </div>
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" th:field="*{password}"><br>
+    </div>
 
-        <button type="submit">로그인</button>
-    </form>
-    </body>
+    <button type="submit">로그인</button>
+</form>
+</body>
 </html>

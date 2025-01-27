@@ -48,7 +48,7 @@ public class MemberServiceImpl implements MemberService{
 
         Member loginMember = memberRepository.findByLoginId(loginId);
 
-        if (!loginMember.getPassword().equals(password)){
+        if (loginMember == null || !loginMember.getPassword().equals(password)){
             return false;
         }
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("memberssh")
+@RequestMapping("/memberssh")
 @RequiredArgsConstructor
 public class MemberControllerSSH {
 
@@ -39,13 +39,15 @@ public class MemberControllerSSH {
     }
 
     @PostMapping("/login")
-    public String loginSuccessForm(@ModelAttribute MemberLoginDto member, RedirectAttributes redirectAttributes){
-        if (!memberService.login(member)){
+    public String loginForm(@ModelAttribute MemberLoginDto member, RedirectAttributes redirectAttributes) {
+        if (!memberService.login(member)) {
+            redirectAttributes.addFlashAttribute("errorMessage", "로그인에 실패했습니다. 아이디와 비밀번호를 확인하세요.");
             return "redirect:/memberssh/login";
         }
 
-        redirectAttributes.addAttribute("member", member);
-        return "redirect:/memberssh/index";
+        String loginId = member.getLoginId();
+        redirectAttributes.addAttribute("loginId", loginId); // 쿼리 파라미터로 전달
+        return "redirect:/itemssh";
     }
 
     @GetMapping("/{memberId}")

@@ -40,8 +40,8 @@ public class ItemServiceImpl implements ItemService{
 
         itemRepository.save(newItem);
 
-        Category categoryList = categoryRepository.findAllByCategoryName(itemRegisterDto.getCategory());
-        newItem.addCategory(categoryList);
+//        Category categoryList = categoryRepository.findAllByCategoryName(itemRegisterDto.getCategory());
+//        newItem.addCategory(categoryList);
 //        categoryItemService.saveCategoryItem(newItem, categoryList);
 
 
@@ -61,6 +61,13 @@ public class ItemServiceImpl implements ItemService{
         }
 
         return returnDtos;
+    }
+
+    @Override
+    public ItemReturnDto findByItemName(String itemName) {
+        Item findItem = itemRepository.findByName(itemName);
+        ItemReturnDto returnDto = new ItemReturnDto(findItem);
+        return returnDto;
     }
 
     @Override
