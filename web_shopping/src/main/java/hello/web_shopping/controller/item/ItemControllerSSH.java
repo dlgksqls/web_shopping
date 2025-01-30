@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -43,11 +45,16 @@ public class ItemControllerSSH {
     }
     @PostMapping("/add")
     public String itemAdd(Model model, @ModelAttribute ItemRegisterDto newItem) throws IOException {
+
+        String encodedName;
+
         try {
             ItemReturnDto registeredItem = itemService.register(newItem);
             String itemName = registeredItem.getName();
 
-            return "redirect:/itemssh/itemInfo/" + itemName;
+            encodedName = URLEncoder.encode(itemName, StandardCharsets.UTF_8.toString());
+
+            return "redirect:/itemssh/itemInfo/" + encodedName;
         } catch (Exception e) {
             model.addAttribute("errorMessage", "아이템 등록 중 오류가 발생했습니다. " + e.getMessage());
             return "item/itemAdd";
