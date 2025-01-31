@@ -7,13 +7,16 @@
 <body>
     <h1>등록 완료 !</h1>
 
-    <div th:object="item">
+    <div th:object="${item}">
         <label for="name">이름</label>
-        <input type="text" id="name" th:field="*{item.name}" readonly><br>
+        <input type="text" id="name" th:field="*{name}" readonly><br>
         <label for="price">가격</label>
-        <input type="number" id="price" th:field="*{item.price}" readonly><br>
+        <input type="number" id="price" th:field="*{price}" readonly><br>
         <label for="quantity">수량</label>
-        <input type="number" id="quantity" th:field="*{item.quantity}" readonly><br>
+        <input type="number" id="quantity" th:field="*{quantity}" readonly><br>
     </div>
+
+    <a href="/itemssh">전체 아이템 보기</a><br>
+    <a href="/itemssh/add">다른 아이템 추가하기</a>
 </body>
 </HTML>
