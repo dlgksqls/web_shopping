@@ -42,7 +42,7 @@ public class CartServiceImpl implements CartService{
         addItem.addToCart(quantity);
         cartRepository.save(cart);
 
-        List<Cart> cartByMember = cartRepository.findCartByMember(buyMember.getId());
+        Cart cartByMember = cartRepository.findCartByLoginId(buyMember.getLoginId());
 
         return new CartReturnDto(cartByMember);
     }
@@ -66,8 +66,14 @@ public class CartServiceImpl implements CartService{
         }
 
         removeItem.removeFromCart(removeQuantity);
-        List<Cart> cartByMember = cartRepository.findCartByMember(findMember.getId());
+        Cart cartByLoginid = cartRepository.findCartByLoginId(findMember.getLoginId());
 
-        return new CartReturnDto(cartByMember);
+        return new CartReturnDto(cartByLoginid);
+    }
+
+    @Override
+    public void findCartByMemberId(String memberId) {
+        Cart findCart = cartRepository.findCartByLoginId(memberId);
+
     }
 }

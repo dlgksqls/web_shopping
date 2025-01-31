@@ -5,6 +5,8 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,20 +27,19 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
     private Order order;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
+
+    @OneToMany(mappedBy = "cart")
+    private List<Item> itemList = new ArrayList<>();
 
     public void addNewItem(Item addItem, Member buyMember, int quantity) {
         this.orderQuantity = quantity;
         this.createdDate = LocalDateTime.now();
         this.member = buyMember;
         this.order = null;
-        this.item = addItem;
+        this.itemList.add(addItem);
         this.totalPrice = addItem.getPrice() * quantity;
 
         buyMember.getCartList().add(this);
-        addItem.getCartList().add(this);
     }
 
     public void addPlusItem(Item addItem, int plusQuantity) {

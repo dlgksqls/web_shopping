@@ -6,8 +6,10 @@
 
 <body>
 
-<h1 th:if="${loginId}">[[${loginId}]]님 환영합니다.</h1>
-<a href=""></a>
+<div th:if="${loginId}">
+    <h1>[[${loginId}]]님 환영합니다.</h1>
+    <a href="">캬트 확인하기</a>
+</div>
 
 <h2>아이템 목록</h2>
 

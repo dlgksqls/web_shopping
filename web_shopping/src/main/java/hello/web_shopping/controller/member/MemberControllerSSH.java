@@ -56,6 +56,6 @@ public class MemberControllerSSH {
 
         model.addAttribute("member", member);
 
-        return "member/memberInfo";
+        return "memberJoinSuccess";
     }
 }

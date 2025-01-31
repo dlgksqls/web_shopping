@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<form action="/categoryssh/add" th:object="${category}" method="post">
+    <label for="categoryName">categoryName</label>
+    <input type="text" id="categoryName" name="categoryName" th:value="*{categoryName}"><br>
+
+    <input type="submit" value="카테고리 등록">
+</form>
+</body>
+</html>

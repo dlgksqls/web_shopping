@@ -4,6 +4,7 @@ import hello.web_shopping.dto.item.ItemRegisterDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,9 +27,10 @@ public class Item {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cartId")
+    private Cart cart;
 
-    @OneToMany(mappedBy = "item")
-    private List<Cart> cartList = new ArrayList<>();
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<CategoryItem> categoryItemList = new ArrayList<>();
     @OneToMany(mappedBy = "item")

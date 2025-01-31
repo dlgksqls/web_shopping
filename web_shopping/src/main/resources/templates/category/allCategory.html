@@ -3,13 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>사용할 수 있는 카테고리입니다.</title>
 </head>
 
 <body>
-</form>
+    <h1>사용할 수 있는 카테고리 입니다.</h1>
+    <ul th:each="category:${categoryList}">
+        <li th:text="${category}"></li>
+    </ul>
 
-
+    <div th:if="${successMessage}" th:text="${successMessage}" style="color: green;"></div>
+    <h2>원하시는 카테고리가 없으신가요?</h2>
+    <a href="categoryssh/add">추가해보세요 !</a>
 </body>
-
 </html>

@@ -11,4 +11,6 @@ public interface CartService {
     CartReturnDto addItemToCart(ItemAddToCartDto itemAddToCartDto);
 
     CartReturnDto removeItemFromCart(String memberId, String itemName, int removeQuantity);
+
+    void findCartByMemberId(String memberId);
 }
