@@ -41,6 +41,7 @@ public class CartServiceImpl implements CartService{
             newcartItem.addCartItem(newCart, addItem, quantity);
 
             newCart.addFirstItem(cartMember, addItem, quantity, newcartItem);
+            addItem.addToCart(quantity);
 
             cartRepository.save(newCart);
             cartItemRepository.save(newcartItem);
@@ -54,6 +55,8 @@ public class CartServiceImpl implements CartService{
             newCartItem.addCartItem(cart, addItem, quantity);
 
             cart.addNewItem(cartMember, addItem, quantity, newCartItem);
+            addItem.addToCart(quantity);
+
             cartItemRepository.save(newCartItem);
             return new CartReturnDto(cart);
         }
@@ -61,6 +64,7 @@ public class CartServiceImpl implements CartService{
         // Cart도 존재하고, 기존에 넣었던 아이템인 경우 수량만 추가
         cartItem.plusCartItem(quantity);
         cart.plusItem(addItem, quantity);
+        addItem.addToCart(quantity);
 
         return new CartReturnDto(cart);
     }

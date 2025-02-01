@@ -66,4 +66,15 @@ public class Item {
         this.createdDate = LocalDateTime.now();
         this.updatedDate = null;
     }
+
+    public void addToCart(int quantity) {
+        if (this.quantity < quantity) {
+            throw new IllegalArgumentException("수량 부족합니다 더 적게 사주세요.");
+        }
+        if (this.quantity == 0){
+            throw new IllegalStateException("재고가 없습니다. 나중에 확인해주세요.");
+        }
+
+        this.quantity -= quantity;
+    }
 }
