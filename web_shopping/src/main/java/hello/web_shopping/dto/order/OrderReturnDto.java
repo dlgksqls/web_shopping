@@ -14,13 +14,13 @@ public class OrderReturnDto {
     private List<ItemOrderReturnDto> orderItemList = new ArrayList<>();
 
     public OrderReturnDto(Long totalPrice, List<Cart> orderCarts) {
-        this.totalPrice = totalPrice;
-
-        for (Cart orderCart : orderCarts) {
-            String itemName = orderCart.getItem().getName();
-            Long itemPrice = orderCart.getItem().getPrice();
-
-            this.orderItemList.add(new ItemOrderReturnDto(itemName, itemPrice));
-        }
+//        this.totalPrice = totalPrice;
+//
+//        for (Cart orderCart : orderCarts) {
+//            String itemName = orderCart.getItem().getName();
+//            Long itemPrice = orderCart.getItem().getPrice();
+//
+//            this.orderItemList.add(new ItemOrderReturnDto(itemName, itemPrice));
+//        }
     }
 }

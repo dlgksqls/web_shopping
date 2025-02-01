@@ -21,8 +21,9 @@ public class Order {
     private String request;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.READY;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

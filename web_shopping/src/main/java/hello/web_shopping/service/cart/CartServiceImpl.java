@@ -3,8 +3,10 @@ package hello.web_shopping.service.cart;
 import hello.web_shopping.dto.cart.CartReturnDto;
 import hello.web_shopping.dto.cart.ItemAddToCartDto;
 import hello.web_shopping.entity.Cart;
+import hello.web_shopping.entity.CartItem;
 import hello.web_shopping.entity.Item;
 import hello.web_shopping.entity.Member;
+import hello.web_shopping.repository.CartItemRepository;
 import hello.web_shopping.repository.CartRepository;
 import hello.web_shopping.repository.ItemRepository;
 import hello.web_shopping.repository.MemberRepository;
@@ -12,68 +14,64 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class CartServiceImpl implements CartService{
 
     private final CartRepository cartRepository;
-    private final ItemRepository itemRepository;
+    private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     public CartReturnDto addItemToCart(ItemAddToCartDto itemAddToCartDto) {
-        Item addItem = itemRepository.findByName(itemAddToCartDto.getItemName());
-        Member buyMember = memberRepository.findByLoginId(itemAddToCartDto.getMemberId());
+        String loginId = itemAddToCartDto.getMemberId();
+        String itemName = itemAddToCartDto.getItemName();
         int quantity = itemAddToCartDto.getCartQuantity();
 
-        Cart cart = cartRepository.findCartByMemberAndItem(buyMember.getId(), addItem.getId());
+        Member cartMember = memberRepository.findByLoginId(loginId);
+        Item addItem = itemRepository.findByName(itemName);
 
-        if (cart != null) {
-            cart.addPlusItem(addItem, quantity);
-        } else {
-            cart = new Cart();
-            cart.addNewItem(addItem, buyMember, quantity);
+        Cart cart = cartRepository.findCartByLoginId(loginId);
+
+        if (cart == null){ // Cart가 없는 경우
+            Cart newCart = new Cart();
+            CartItem newcartItem = new CartItem();
+            newcartItem.addCartItem(newCart, addItem, quantity);
+
+            newCart.addFirstItem(cartMember, addItem, quantity, newcartItem);
+
+            cartRepository.save(newCart);
+            cartItemRepository.save(newcartItem);
+            return new CartReturnDto(newCart);
         }
 
-        addItem.addToCart(quantity);
-        cartRepository.save(cart);
+        CartItem cartItem = cartItemRepository.findCartItem(itemName, loginId);
 
-        Cart cartByMember = cartRepository.findCartByLoginId(buyMember.getLoginId());
+        if (cartItem == null){ // Cart는 있지만 기존에 추가돼있던 아이템이 아닌 경우
+            CartItem newCartItem = new CartItem();
+            newCartItem.addCartItem(cart, addItem, quantity);
 
-        return new CartReturnDto(cartByMember);
+            cart.addNewItem(cartMember, addItem, quantity, newCartItem);
+            cartItemRepository.save(newCartItem);
+            return new CartReturnDto(cart);
+        }
+
+        // Cart도 존재하고, 기존에 넣었던 아이템인 경우 수량만 추가
+        cartItem.plusCartItem(quantity);
+        cart.plusItem(addItem, quantity);
+
+        return new CartReturnDto(cart);
     }
 
     @Override
     public CartReturnDto removeItemFromCart(String memberId, String itemName, int removeQuantity) {
-        Member findMember = memberRepository.findByLoginId(memberId);
-        Item removeItem = itemRepository.findByName(itemName);
-
-        Cart cart = cartRepository.findCartByMemberAndItem(findMember.getId(), removeItem.getId());
-
-        if (cart == null){
-            throw new NullPointerException("찾으시는 장바구니가 없습니다.");
-        }
-
-        if (removeQuantity == cart.getOrderQuantity()){
-            cartRepository.delete(cart);
-        }
-        else{
-            cart.reduceItemFromCart(removeItem, removeQuantity);
-        }
-
-        removeItem.removeFromCart(removeQuantity);
-        Cart cartByLoginid = cartRepository.findCartByLoginId(findMember.getLoginId());
-
-        return new CartReturnDto(cartByLoginid);
+        return null;
     }
 
     @Override
     public void findCartByMemberId(String memberId) {
-        Cart findCart = cartRepository.findCartByLoginId(memberId);
 
     }
 }

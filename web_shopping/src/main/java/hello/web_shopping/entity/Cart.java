@@ -1,5 +1,6 @@
 package hello.web_shopping.entity;
 
+import hello.web_shopping.entity.enumPkg.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -16,7 +17,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int orderQuantity;
+    private int orderQuantity = 0;
     private Long totalPrice = 0L;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
@@ -24,33 +25,36 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderId")
     private Order order;
 
     @OneToMany(mappedBy = "cart")
-    private List<Item> itemList = new ArrayList<>();
+    private List<CartItem> cartItemList = new ArrayList<>();
 
-    public void addNewItem(Item addItem, Member buyMember, int quantity) {
-        this.orderQuantity = quantity;
+    public void addFirstItem(Member cartMember, Item addItem, int quantity, CartItem cartItem) {
+        this.orderQuantity += quantity;
+        this.totalPrice += addItem.getPrice() * quantity;
+
         this.createdDate = LocalDateTime.now();
-        this.member = buyMember;
-        this.order = null;
-        this.itemList.add(addItem);
-        this.totalPrice = addItem.getPrice() * quantity;
 
-        buyMember.getCartList().add(this);
+        this.member = cartMember;
+        this.cartItemList.add(cartItem);
+
+        cartMember.getCartList().add(this);
     }
 
-    public void addPlusItem(Item addItem, int plusQuantity) {
-        this.orderQuantity += plusQuantity;
+    public void addNewItem(Member cartMember, Item addItem, int quantity, CartItem newCartItem) {
+        this.orderQuantity += quantity;
+        this.totalPrice += addItem.getPrice() * quantity;
         this.updatedDate = LocalDateTime.now();
-        this.totalPrice += addItem.getPrice() * plusQuantity;
+        this.cartItemList.add(newCartItem);
     }
 
-    public void reduceItemFromCart(Item removeItem, int removeQuantity){
-        this.orderQuantity -= removeQuantity;
+    public void plusItem(Item plusItem, int quantity) {
+        this.orderQuantity += quantity;
+        this.totalPrice += plusItem.getPrice() * quantity;
         this.updatedDate = LocalDateTime.now();
-        this.totalPrice -= removeItem.getPrice() * removeQuantity;
     }
 }

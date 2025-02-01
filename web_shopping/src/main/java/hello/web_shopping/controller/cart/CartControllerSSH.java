@@ -18,10 +18,10 @@ public class CartControllerSSH {
 
     private final CartService cartService;
 
-    @GetMapping("/{memberId}")
-    public String viewCart(Model model, @PathVariable String memberId){
-        CartReturnDto dto = new CartReturnDto();
-        cartService.findCartByMemberId(memberId);
-        model.addAttribute()
-    }
+//    @GetMapping("/{memberId}")
+//    public String viewCart(Model model, @PathVariable String memberId){
+//        CartReturnDto dto = new CartReturnDto();
+//        cartService.findCartByMemberId(memberId);
+//        model.addAttribute()
+//    }
 }

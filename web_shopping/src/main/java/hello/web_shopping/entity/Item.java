@@ -27,10 +27,6 @@ public class Item {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cartId")
-    private Cart cart;
-
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<CategoryItem> categoryItemList = new ArrayList<>();
     @OneToMany(mappedBy = "item")
@@ -61,14 +57,6 @@ public class Item {
         CategoryItem categoryItem = new CategoryItem(this, categoryList);
         this.categoryItemList.add(categoryItem);
         categoryList.getCategoryItemList().add(categoryItem);
-    }
-
-    public void addToCart(int quantity){
-        this.quantity -= quantity;
-    }
-
-    public void removeFromCart(int quantity){
-        this.quantity += quantity;
     }
 
     public void createFirstItem() {
