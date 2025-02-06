@@ -1,9 +1,8 @@
 package hello.web_shopping.service.cart;
 
+import hello.web_shopping.dto.cart.CartItemReturnDto;
 import hello.web_shopping.dto.cart.CartReturnDto;
 import hello.web_shopping.dto.cart.ItemAddToCartDto;
-import hello.web_shopping.entity.Item;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,5 +11,5 @@ public interface CartService {
 
     CartReturnDto removeItemFromCart(String memberId, String itemName, int removeQuantity);
 
-    void findCartByMemberId(String memberId);
+    List<CartItemReturnDto> findCartByMemberId(String memberId);
 }

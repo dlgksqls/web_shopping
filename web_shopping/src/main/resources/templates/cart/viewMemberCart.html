@@ -1,13 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-    </head>
+<head>
+    <meta charset="UTF-8">
+</head>
 
     <body>
-        <div th:if="${member}">
-
+        <div th:if="${items != null && !items.isEmpty()}">
+            <div th:each="item : ${items}">
+                <p>상품 이름 : <span th:text="${item.itemName}"></span></p>
+                <p>상품 가격 : <span th:text="${item.price}"></span></p>
+                <p>주문 수량 : <span th:text="${item.quantity}"></span></p>
+                <p>담은 날짜 : <span th:text="${item.createdDate}"></span></p>
+                <div th:if="${#lists.size(items) > 1}">
+                    <p>-----------------------------------------------------</p>
+                </div>
+            </div>
+            <div>
+                <p>총 수량 : <span th:text="${quantity}"></span></p>
+                <p>총 가격 : <span th:text="${totalPrice}"></span></p>
+            </div>
         </div>
-    </body>
+        <div th:else>
+            <h1>상품을 담아보세요</h1>
+        </div>
+</body>
 </html>
-

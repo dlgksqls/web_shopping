@@ -1,5 +1,6 @@
 package hello.web_shopping.service.cart;
 
+import hello.web_shopping.dto.cart.CartItemReturnDto;
 import hello.web_shopping.dto.cart.CartReturnDto;
 import hello.web_shopping.dto.cart.ItemAddToCartDto;
 import hello.web_shopping.entity.Cart;
@@ -13,6 +14,9 @@ import hello.web_shopping.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -75,7 +79,19 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public void findCartByMemberId(String memberId) {
+    public List<CartItemReturnDto> findCartByMemberId(String memberId) {
+        List<CartItem> allCartItem = cartItemRepository.findAllCartItem(memberId);
+        List<CartItemReturnDto> returnDto = new ArrayList<>();
 
+        for (CartItem cartItem : allCartItem) {
+            CartItemReturnDto dto = new CartItemReturnDto(cartItem);
+            CartItem duplicatedCart = cartItemRepository.findCartItem(memberId, dto.getItemName());
+            if (duplicatedCart != null){
+                // ** 사전에 카트에 넣은 아이템이 있으면 카트를 하나 더 추가하지말고, 있던 것에 추가하고싶어 ** //
+            }
+            returnDto.add(dto);
+        }
+
+        return returnDto;
     }
 }
