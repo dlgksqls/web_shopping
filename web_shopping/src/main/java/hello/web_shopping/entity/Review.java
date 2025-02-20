@@ -13,11 +13,10 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;
-    private String image;
+    private String comment;
+//    private String image;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
@@ -25,4 +24,13 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemId")
     private Item item;
+
+    public void createReview(Item reviewItem, Member reviewMember, String comment) {
+        this.item = reviewItem;
+        this.member = reviewMember;
+        this.comment = comment;
+        this.createdDate = LocalDateTime.now();
+
+        item.addReview(this);
+    }
 }

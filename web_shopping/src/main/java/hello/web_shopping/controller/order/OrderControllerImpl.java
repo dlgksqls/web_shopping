@@ -2,7 +2,7 @@ package hello.web_shopping.controller.order;
 
 import hello.web_shopping.dto.order.OrderInputDto;
 import hello.web_shopping.dto.order.OrderReturnDto;
-import hello.web_shopping.service.Order.OrderService;
+import hello.web_shopping.service.order.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

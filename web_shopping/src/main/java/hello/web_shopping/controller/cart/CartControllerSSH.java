@@ -29,7 +29,7 @@ public class CartControllerSSH {
         int quantity = 0;
 
         for (CartItemReturnDto cartItem : cartItems) {
-            totalPrice += cartItem.getPrice();
+            totalPrice += cartItem.getPrice() * cartItem.getQuantity();
             quantity += cartItem.getQuantity();
         }
         model.addAttribute("items", cartItems);

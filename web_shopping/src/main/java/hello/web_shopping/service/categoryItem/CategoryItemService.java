@@ -1,9 +1,7 @@
-package hello.web_shopping.service.CategoryItem;
+package hello.web_shopping.service.categoryItem;
 
 import hello.web_shopping.entity.Category;
-import hello.web_shopping.entity.CategoryItem;
 import hello.web_shopping.entity.Item;
-import jakarta.persistence.Id;
 
 public interface CategoryItemService {
 

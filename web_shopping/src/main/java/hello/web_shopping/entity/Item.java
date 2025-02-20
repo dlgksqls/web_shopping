@@ -77,4 +77,8 @@ public class Item {
 
         this.quantity -= quantity;
     }
+
+    public void addReview(Review review) {
+        this.reviewList.add(review);
+    }
 }

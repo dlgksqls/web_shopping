@@ -1,4 +1,4 @@
-package hello.web_shopping.service.CategoryItem;
+package hello.web_shopping.service.categoryItem;
 
 
 import hello.web_shopping.entity.Category;

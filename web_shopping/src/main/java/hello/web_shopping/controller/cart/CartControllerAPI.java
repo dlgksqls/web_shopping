@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/cart")
-public interface CartController {
+public interface CartControllerAPI {
 
     ResponseEntity<CartReturnDto> addItemToCart(ItemAddToCartDto itemAddToCartDto);
 

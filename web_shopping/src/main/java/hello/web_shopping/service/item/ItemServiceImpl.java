@@ -2,14 +2,11 @@ package hello.web_shopping.service.item;
 
 import hello.web_shopping.dto.item.ItemRegisterDto;
 import hello.web_shopping.dto.item.ItemReturnDto;
-import hello.web_shopping.entity.Category;
-import hello.web_shopping.entity.CategoryItem;
 import hello.web_shopping.entity.Item;
 import hello.web_shopping.entity.UploadFile;
-import hello.web_shopping.repository.CategoryItemRepository;
 import hello.web_shopping.repository.CategoryRepository;
 import hello.web_shopping.repository.ItemRepository;
-import hello.web_shopping.service.CategoryItem.CategoryItemService;
+import hello.web_shopping.service.categoryItem.CategoryItemService;
 import hello.web_shopping.service.file.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

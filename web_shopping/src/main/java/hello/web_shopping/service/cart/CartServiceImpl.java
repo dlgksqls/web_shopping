@@ -52,7 +52,7 @@ public class CartServiceImpl implements CartService{
             return new CartReturnDto(newCart);
         }
 
-        CartItem cartItem = cartItemRepository.findCartItem(itemName, loginId);
+        CartItem cartItem = cartItemRepository.findCartItem(loginId, itemName);
 
         if (cartItem == null){ // Cart는 있지만 기존에 추가돼있던 아이템이 아닌 경우
             CartItem newCartItem = new CartItem();

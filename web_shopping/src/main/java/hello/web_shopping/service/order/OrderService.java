@@ -1,8 +1,6 @@
-package hello.web_shopping.service.Order;
+package hello.web_shopping.service.order;
 
-import hello.web_shopping.dto.order.OrderInputDto;
 import hello.web_shopping.dto.order.OrderReturnDto;
-import hello.web_shopping.entity.Order;
 
 public interface OrderService {
 
