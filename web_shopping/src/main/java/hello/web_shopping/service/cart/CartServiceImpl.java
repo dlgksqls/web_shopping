@@ -34,9 +34,12 @@ public class CartServiceImpl implements CartService{
         String itemName = itemAddToCartDto.getItemName();
         int quantity = itemAddToCartDto.getCartQuantity();
 
-        Member cartMember = memberRepository.findByLoginId(loginId);
         Item addItem = itemRepository.findByName(itemName);
+        if (quantity > addItem.getQuantity()) {
+            throw new IllegalArgumentException("수량이 부족합니다 나중에 시도해보세요.");
+        }
 
+        Member cartMember = memberRepository.findByLoginId(loginId);
         Cart cart = cartRepository.findCartByLoginId(loginId);
 
         if (cart == null){ // Cart가 없는 경우
