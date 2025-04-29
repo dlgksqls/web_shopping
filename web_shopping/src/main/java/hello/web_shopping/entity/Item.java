@@ -81,4 +81,8 @@ public class Item {
     public void addReview(Review review) {
         this.reviewList.add(review);
     }
+
+    public void removeFromCart(int removeQuantity) {
+        this.quantity += removeQuantity;
+    }
 }

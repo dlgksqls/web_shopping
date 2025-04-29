@@ -85,6 +85,7 @@ public class CartServiceImpl implements CartService{
 
         for (CartItem findCartItem : findCartItems) {
             if (findCartItem.getItem().getName().equals(itemName)){
+                Item findItem = itemRepository.findByName(itemName);
                 isItem = true;
                 if (findCartItem.getQuantity() == removeQuantity) {
                     cartItemRepository.delete(findCartItem);
@@ -92,6 +93,7 @@ public class CartServiceImpl implements CartService{
                 else
                     findCartItem.minusCartItem(removeQuantity);
                 findCart.removeItem(findCartItem.getItem(), removeQuantity);
+                findItem.removeFromCart(removeQuantity);
                 break;
             }
         }

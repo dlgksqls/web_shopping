@@ -31,6 +31,6 @@ public class CartItem {
     }
 
     public void minusCartItem(int removeQuantity) {
-        this.quantity -= quantity;
+        this.quantity -= removeQuantity;
     }
 }
