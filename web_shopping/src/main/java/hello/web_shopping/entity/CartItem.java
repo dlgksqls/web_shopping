@@ -29,4 +29,8 @@ public class CartItem {
     public void plusCartItem(int plusQuantity) {
         this.quantity += plusQuantity;
     }
+
+    public void minusCartItem(int removeQuantity) {
+        this.quantity -= quantity;
+    }
 }

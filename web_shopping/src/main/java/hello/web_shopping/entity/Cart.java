@@ -57,4 +57,17 @@ public class Cart {
         this.totalPrice += plusItem.getPrice() * quantity;
         this.updatedDate = LocalDateTime.now();
     }
+
+    public void removeItem(Item removeItem, int quantity){
+        if (this.orderQuantity == quantity) {
+            cartItemList.removeIf(
+                    cartItem -> cartItem.getItem().getName().equals(removeItem.getName())
+            );
+        }
+        else{
+            this.orderQuantity -= quantity;
+            this.totalPrice -= removeItem.getPrice() * quantity;
+            this.updatedDate = LocalDateTime.now();
+        }
+    }
 }

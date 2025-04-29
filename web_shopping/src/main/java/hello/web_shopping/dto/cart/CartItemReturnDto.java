@@ -19,4 +19,9 @@ public class CartItemReturnDto {
         this.quantity = cartItem.getQuantity();
         this.createdDate = cartItem.getCart().getCreatedDate();
     }
+
+    public void plusItem(CartItem duplicatedCart) {
+        this.quantity += duplicatedCart.getQuantity();
+    }
+    public void minusItem(CartItem duplicatedCart) {this.quantity -= duplicatedCart.getQuantity();}
 }

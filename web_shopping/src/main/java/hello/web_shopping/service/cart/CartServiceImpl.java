@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -78,7 +79,27 @@ public class CartServiceImpl implements CartService{
 
     @Override
     public CartReturnDto removeItemFromCart(String memberId, String itemName, int removeQuantity) {
-        return null;
+        Cart findCart = cartRepository.findCartByLoginId(memberId);
+        List<CartItem> findCartItems = cartItemRepository.findCartItemByCartId(findCart.getId());
+        boolean isItem = false;
+
+        for (CartItem findCartItem : findCartItems) {
+            if (findCartItem.getItem().getName().equals(itemName)){
+                isItem = true;
+                if (findCartItem.getQuantity() == removeQuantity) {
+                    cartItemRepository.delete(findCartItem);
+                }
+                else
+                    findCartItem.minusCartItem(removeQuantity);
+                findCart.removeItem(findCartItem.getItem(), removeQuantity);
+                break;
+            }
+        }
+
+        if (isItem) {
+            return new CartReturnDto(findCart);
+        }
+        else throw new NoSuchElementException("해당 아이템은 장바구니에 없습니다.");
     }
 
     @Override
@@ -91,10 +112,10 @@ public class CartServiceImpl implements CartService{
             CartItem duplicatedCart = cartItemRepository.findCartItem(memberId, dto.getItemName());
             if (duplicatedCart != null){
                 // ** 사전에 카트에 넣은 아이템이 있으면 카트를 하나 더 추가하지말고, 있던 것에 추가하고싶어 ** //
+                dto.plusItem(duplicatedCart);
             }
             returnDto.add(dto);
         }
-
         return returnDto;
     }
 }
